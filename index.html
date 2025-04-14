@@ -323,7 +323,7 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
-	    <script>
+	   <script>
     // قائمة النطاقات المسموح بها
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
@@ -388,7 +388,13 @@ div {
     }
 </script>
 
- 
+<div class="email-validation">
+    <h3>Email Validation</h3>
+    <label for="email">Enter Email:</label>
+    <input type="text" id="email" placeholder="example@domain.com">
+    <button onclick="validateEmail()">Validate Email</button>
+    <div id="message" class="message"></div>
+</div>
 
 <div class="domain-extensions">
     <h3>Popular Domain Extensions and Their Meanings:</h3>
@@ -402,6 +408,7 @@ div {
         <li>.me: Often used for personal sites or individual branding.</li>
     </ul>
 </div>
+
 
 </body>
 </html>

@@ -323,7 +323,7 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
-  <script>
+ <script>
     // قائمة النطاقات المسموحة
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
@@ -342,7 +342,7 @@ div {
             return;
         }
 
-        // استخراج اسم المستخدم والنطاق
+        // استخراج اسم المستخدم والنطاق من البريد الإلكتروني
         const username = email.split('@')[0];
         const domain = email.split('@')[1];
 
@@ -361,7 +361,7 @@ div {
             return;
         }
 
-        // التحقق من النطاق الحكومي
+        // التحقق إذا كان البريد ينتمي إلى نطاق حكومي أو تعليمي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
             if (invalidUsernamePattern.test(username)) {
                 message.textContent = 'The email appears fake despite having a governmental domain.';
@@ -387,7 +387,6 @@ div {
     }
 </script>
 
-
 <div class="email-validation">
     <h3>Email Validation</h3>
     <label for="email">Enter Email:</label>
@@ -408,8 +407,6 @@ div {
         <li>.me: Often used for personal sites or individual branding.</li>
     </ul>
 </div>
-  
-
 
 </body>
 </html>

@@ -323,7 +323,7 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
-	   <script>
+<script>
     // قائمة النطاقات المسموح بها
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
@@ -364,7 +364,7 @@ div {
         // التحقق من النطاق الحكومي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
             // شرط إضافي للتحقق من منطقية البريد ضمن النطاق الحكومي
-            if (username.includes('Support') || username.length < 5 || invalidUsernamePattern.test(username)) {
+            if (username.toLowerCase().includes('support') || username.length < 5 || invalidUsernamePattern.test(username)) {
                 message.textContent = 'The email appears fake despite having a governmental domain.';
                 message.className = 'message invalid';
             } else {

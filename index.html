@@ -323,7 +323,7 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
- <script>
+  <script>
     // قائمة النطاقات المسموحة
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
@@ -342,12 +342,12 @@ div {
             return;
         }
 
-        // استخراج اسم المستخدم والنطاق من البريد الإلكتروني
+        // استخراج اسم المستخدم والنطاق
         const username = email.split('@')[0];
         const domain = email.split('@')[1];
 
         // التحقق من اسم المستخدم (username)
-        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$|^.*(Support|Help|Service).*$/i; // أنماط غير منطقية تتضمن كلمات شائعة
+        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // الأرقام العشوائية أو الكبيرة تعتبر غير منطقية
         if (invalidUsernamePattern.test(username) || username.length < 3) {
             message.textContent = 'The email username is unrealistic and appears fake.';
             message.className = 'message invalid';
@@ -363,7 +363,8 @@ div {
 
         // التحقق إذا كان البريد ينتمي إلى نطاق حكومي أو تعليمي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
-            if (invalidUsernamePattern.test(username)) {
+            // شرط إضافي للتحقق من منطقية البريد ضمن النطاق الحكومي
+            if (username.includes('1234') || username.length < 5) {
                 message.textContent = 'The email appears fake despite having a governmental domain.';
                 message.className = 'message invalid';
             } else {
@@ -386,7 +387,6 @@ div {
         document.getElementById('popup').style.display = 'none';
     }
 </script>
-
 <div class="email-validation">
     <h3>Email Validation</h3>
     <label for="email">Enter Email:</label>

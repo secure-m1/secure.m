@@ -323,8 +323,8 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
-<script>
-    // قائمة النطاقات المسموح بها
+  <script>
+    // قائمة النطاقات المسموحة
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
     // دالة التحقق من البريد الإلكتروني
@@ -347,7 +347,7 @@ div {
         const domain = email.split('@')[1];
 
         // التحقق من اسم المستخدم (username)
-        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // أنماط أرقام عشوائية أو غير منطقية
+        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // الأرقام العشوائية أو الكبيرة تعتبر غير منطقية
         if (invalidUsernamePattern.test(username) || username.length < 3) {
             message.textContent = 'The email username is unrealistic and appears fake.';
             message.className = 'message invalid';
@@ -361,10 +361,10 @@ div {
             return;
         }
 
-        // التحقق من النطاق الحكومي
+        // التحقق إذا كان البريد ينتمي إلى نطاق حكومي أو تعليمي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
             // شرط إضافي للتحقق من منطقية البريد ضمن النطاق الحكومي
-            if (username.toLowerCase().includes('support') || username.length < 5 || invalidUsernamePattern.test(username)) {
+            if (username.includes('1234') || username.length < 5) {
                 message.textContent = 'The email appears fake despite having a governmental domain.';
                 message.className = 'message invalid';
             } else {
@@ -387,15 +387,6 @@ div {
         document.getElementById('popup').style.display = 'none';
     }
 </script>
-
-<div class="email-validation">
-    <h3>Email Validation</h3>
-    <label for="email">Enter Email:</label>
-    <input type="text" id="email" placeholder="example@domain.com">
-    <button onclick="validateEmail()">Validate Email</button>
-    <div id="message" class="message"></div>
-</div>
-
 <div class="domain-extensions">
     <h3>Popular Domain Extensions and Their Meanings:</h3>
     <ul>

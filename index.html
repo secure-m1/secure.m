@@ -323,6 +323,65 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
+	<script>
+    // قائمة النطاقات المسموح بها
+    const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات متعددة
+
+    // دالة التحقق من البريد الإلكتروني
+    function validateEmail() {
+        const email = document.getElementById('email').value.trim(); // إزالة المسافات الزائدة
+        const message = document.getElementById('message');
+
+        // تعريف تعبير منتظم قوي للتحقق من صيغة البريد الإلكتروني
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        // التحقق من صيغة البريد الإلكتروني
+        if (!emailRegex.test(email)) {
+            message.textContent = 'The email format is invalid and appears fake.';
+            message.className = 'message invalid';
+            return;
+        }
+
+        // استخراج اسم المستخدم والنطاق من البريد الإلكتروني
+        const username = email.split('@')[0];
+        const domain = email.split('@')[1];
+
+        // التحقق من اسم المستخدم (username)
+        const fakePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // نمط يتحقق من الأرقام العشوائية أو غير المنطقية
+        if (fakePattern.test(username)) {
+            message.textContent = 'The email username is invalid and appears fake.';
+            message.className = 'message invalid';
+            return;
+        }
+
+        // التحقق من النطاق
+        if (!domain || domain.split('.').length < 2 || domain.length < 5 || domain.includes('3333333333')) {
+            message.textContent = 'The email domain is invalid and appears fake.';
+            message.className = 'message invalid';
+            return;
+        }
+
+        // التحقق من النطاق إذا كان حكوميًا أو تعليميًا
+        if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
+            message.textContent = 'The email is valid and belongs to a governmental or educational entity.';
+            message.className = 'message valid';
+        } else {
+            message.textContent = 'The email is valid but not governmental.';
+            message.className = 'message neutral';
+        }
+    }
+
+    // دالة فتح القائمة المنبثقة
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    // دالة إغلاق القائمة المنبثقة
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+
 	    <script>
     // قائمة النطاقات المسموح بها
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات متعددة

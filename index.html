@@ -324,7 +324,7 @@ div {
             'mailto:help@tabby.ai',
         ];
 <script>
-    // قائمة النطاقات المسموحة
+    // قائمة النطاقات المسموح بها
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
     // دالة التحقق من البريد الإلكتروني
@@ -342,28 +342,29 @@ div {
             return;
         }
 
-        // استخراج اسم المستخدم والنطاق من البريد الإلكتروني
+        // استخراج اسم المستخدم والنطاق
         const username = email.split('@')[0];
         const domain = email.split('@')[1];
 
         // التحقق من اسم المستخدم (username)
-        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$|^.*(Support|Help|Service).*$/i; // أنماط غير منطقية تتضمن كلمات شائعة
-        if (invalidUsernamePattern.test(username) || username.length < 3) {
+        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // أنماط أرقام عشوائية أو غير منطقية
+        if (invalidUsernamePattern.test(username)  username.length < 3) {
             message.textContent = 'The email username is unrealistic and appears fake.';
             message.className = 'message invalid';
             return;
         }
 
         // التحقق من النطاق
-        if (!domain || domain.split('.').length < 2 || domain.length < 5) {
+        if (!domain  domain.split('.').length < 2  domain.length < 5) {
             message.textContent = 'The email domain is invalid and appears fake.';
             message.className = 'message invalid';
             return;
         }
 
-        // التحقق إذا كان البريد ينتمي إلى نطاق حكومي أو تعليمي
+        // التحقق من النطاق الحكومي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
-            if (invalidUsernamePattern.test(username)) {
+            // شرط إضافي للتحقق من منطقية البريد ضمن النطاق الحكومي
+            if (username.includes('Support')  username.length < 5 || invalidUsernamePattern.test(username)) {
                 message.textContent = 'The email appears fake despite having a governmental domain.';
                 message.className = 'message invalid';
             } else {
@@ -386,6 +387,7 @@ div {
         document.getElementById('popup').style.display = 'none';
     }
 </script>
+	
 <div class="domain-extensions">
     <h3>Popular Domain Extensions and Their Meanings:</h3>
     <ul>

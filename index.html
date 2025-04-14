@@ -324,14 +324,8 @@ div {
             'mailto:help@tabby.ai',
         ];
 	    <script>
-    // قائمة النطاقات المسموحة
+    // قائمة النطاقات المسموح بها
     const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات متعددة
-
-    // قائمة البريد الإلكتروني المعتمد
-    const validEmails = [
-        'mailto:ccc@iyelo.com',
-        'mailto:help@tabby.ai'
-    ];
 
     // دالة التحقق من البريد الإلكتروني
     function validateEmail() {
@@ -350,17 +344,18 @@ div {
 
         // استخراج النطاق من البريد الإلكتروني
         const domain = email.split('@')[1];
-
-        if (!domain || domain.split('.').length < 2 || domain.includes('3333333333')) {
+        if (!domain || domain.split('.').length < 2 || domain.length < 5) {
             message.textContent = 'The email domain is invalid and appears fake.';
             message.className = 'message invalid';
             return;
         }
 
-        // التحقق إذا كان البريد الإلكتروني موجوداً ضمن القائمة المعتمدة
-        if (validEmails.includes(email)) {
-            message.textContent = 'The email is valid and recognized.';
-            message.className = 'message valid';
+        // التحقق من النصوص غير المنطقية مثل الأرقام العشوائية
+        const username = email.split('@')[0];
+        const randomPattern = /^[0-9]+$|^.*[0-9]{5,}.*$/;
+        if (randomPattern.test(username)) {
+            message.textContent = 'The email appears fake due to unrealistic username.';
+            message.className = 'message invalid';
             return;
         }
 

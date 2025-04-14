@@ -323,9 +323,9 @@ div {
             'mailto:ccc@iyelo.com',
             'mailto:help@tabby.ai',
         ];
-	<script>
-    // قائمة النطاقات المسموح بها
-    const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات متعددة
+  <script>
+    // قائمة النطاقات المسموحة
+    const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات حكومية وتعليمية
 
     // دالة التحقق من البريد الإلكتروني
     function validateEmail() {
@@ -342,29 +342,35 @@ div {
             return;
         }
 
-        // استخراج اسم المستخدم والنطاق من البريد الإلكتروني
+        // استخراج اسم المستخدم والنطاق
         const username = email.split('@')[0];
         const domain = email.split('@')[1];
 
         // التحقق من اسم المستخدم (username)
-        const fakePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // نمط يتحقق من الأرقام العشوائية أو غير المنطقية
-        if (fakePattern.test(username)) {
-            message.textContent = 'The email username is invalid and appears fake.';
+        const invalidUsernamePattern = /^[0-9]+$|^.*[0-9]{5,}.*$/; // الأرقام العشوائية أو الكبيرة تعتبر غير منطقية
+        if (invalidUsernamePattern.test(username) || username.length < 3) {
+            message.textContent = 'The email username is unrealistic and appears fake.';
             message.className = 'message invalid';
             return;
         }
 
         // التحقق من النطاق
-        if (!domain || domain.split('.').length < 2 || domain.length < 5 || domain.includes('3333333333')) {
+        if (!domain || domain.split('.').length < 2 || domain.length < 5) {
             message.textContent = 'The email domain is invalid and appears fake.';
             message.className = 'message invalid';
             return;
         }
 
-        // التحقق من النطاق إذا كان حكوميًا أو تعليميًا
+        // التحقق إذا كان البريد ينتمي إلى نطاق حكومي أو تعليمي
         if (validDomains.some(validDomain => domain.endsWith(validDomain))) {
-            message.textContent = 'The email is valid and belongs to a governmental or educational entity.';
-            message.className = 'message valid';
+            // شرط إضافي للتحقق من منطقية البريد ضمن النطاق الحكومي
+            if (username.includes('1234') || username.length < 5) {
+                message.textContent = 'The email appears fake despite having a governmental domain.';
+                message.className = 'message invalid';
+            } else {
+                message.textContent = 'The email is valid and belongs to a governmental or educational entity.';
+                message.className = 'message valid';
+            }
         } else {
             message.textContent = 'The email is valid but not governmental.';
             message.className = 'message neutral';

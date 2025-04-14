@@ -133,7 +133,7 @@ div {
 </head>
 <body>
 
-    <img src="C:/Users/user/Desktop/logo5.webp" alt="Image from desktop"  />
+<img src="https://raw.githubusercontent.com/hessa75/securem/main/images-removebg-preview.png" alt="Logo" style="width: 300px; height: 300px; border-radius: 50%; background-color: transparent;">
 	
 	
     
@@ -345,6 +345,39 @@ function closePopup() {
     document.getElementById('popup').style.display = 'none';
 }
     </script>
+	    </script>
+<script>
+    // تعريف النطاقات المسموح بها
+    const validDomains = ['gov.sa', 'edu.sa', 'org.sa']; // نطاقات متعددة
+
+    // دالة التحقق من البريد الإلكتروني
+    function validateEmail() {
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message');
+        
+        // استخراج النطاق من البريد الإلكتروني
+        const domain = email.split('@')[1]; // الجزء بعد علامة @
+
+        // التحقق من صحة النطاق
+        if (domain && validDomains.some(validDomain => domain.endsWith(validDomain))) {
+            message.textContent = 'The email is valid and belongs to a governmental entity.';
+            message.className = 'message valid';
+        } else {
+            message.textContent = 'The email is not associated with a governmental entity.';
+            message.className = 'message invalid';
+        }
+    }
+
+    // دالة فتح القائمة المنبثقة
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    // دالة إغلاق القائمة المنبثقة
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
 
     <div class="domain-extensions">
         <h3>Popular Domain Extensions and Their Meanings:</h3>
